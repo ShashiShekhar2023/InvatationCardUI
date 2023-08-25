@@ -1,19 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { CustomerrorComponent } from './customerror/customerror.component';
-import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
-  { path: '', redirectTo:'login', pathMatch:'full'},
-  { path: 'login', component:LoginComponent },
-  { path: '**', component:CustomerrorComponent },
-  { path: 'fogotpassword', component:ForgotpasswordComponent }
-  
+
+  {
+    path: 'login',
+    loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
+  },
+  { path: '',   
+    redirectTo: '/login',
+    pathMatch: 'full' 
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
+    path: 'cards',
+    loadChildren: () => import('./cards/cards.module').then(m => m.CardsModule)
+  },
+  {
+    path: 'friends',
+    loadChildren: () => import('./friends/friends.module').then(m => m.FriendsModule)
+  }
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
